@@ -1,7 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 import db from "../../firebase";
 // import firebase from 'firebase';
-import { ref, set, serverTimestamp } from "firebase/database";
+import { ref, set,update, serverTimestamp } from "firebase/database";
 
 const authSlice = createSlice({
   name: "auth",
@@ -23,12 +23,11 @@ const authSlice = createSlice({
       state.userImg = action.payload.userImg;
       state.token = action.payload.token;
       state.userEmail = action.payload.userEmail;
-      set(ref(db, "users/" + action.payload.userId), {
+      update(ref(db, "users/" + action.payload.userId), {
         userName: action.payload.userName,
         userId: action.payload.userId,
         userImg: action.payload.userImg,
         userEmail: action.payload.userEmail,
-        contactList: [],
         lastSeen: serverTimestamp(),
       });
     },

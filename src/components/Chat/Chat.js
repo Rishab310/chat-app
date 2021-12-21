@@ -47,17 +47,22 @@ const Chat = () => {
     if (!messageHashKey) return;
     setLoading(true);
     onValue(ref(db, "messages/" + messageHashKey),(snapshot) => {
-      let messages = [];
-        Object.values(snapshot.val()).forEach((message) => {
-          messages.push({
-            type: message.type,
-            message: message.message,
-            author: message.authorName,
-            timestamp: message.timestamp,
-            authorId: message.authorId,
+      if(snapshot.exists()){
+        let messages = [];
+          Object.values(snapshot.val()).forEach((message) => {
+            messages.push({
+              type: message.type,
+              message: message.message,
+              author: message.authorName,
+              timestamp: message.timestamp,
+              authorId: message.authorId,
+            });
           });
-        });
-        setMessages(messages);
+          setMessages(messages);
+      }
+      else {
+        setMessages({});
+      }
         setLoading(false);
     })
   };
