@@ -61,7 +61,7 @@ const Chat = () => {
           setMessages(messages);
       }
       else {
-        setMessages({});
+        setMessages([]);
       }
         setLoading(false);
     })
