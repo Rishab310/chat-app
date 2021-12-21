@@ -36,7 +36,7 @@ const Sidebar = ({ update }) => {
   const userData = useSelector(selectUserData);
   const [userList, setUserList] = useState({});
 
-  console.log(userList);
+  // console.log(userList);
   const [anchorEl, setAnchorEl] = useState();
   const [userContactList, setUserContactList] = useState([]);
   const [showAddUser, setShowAddUser] = useState(false);
@@ -62,16 +62,16 @@ const Sidebar = ({ update }) => {
 
   const getUserDetails = () => {
     if (userData.userId) {
-      console.log("here");
+      // console.log("here");
       let users = [];
       setUsersLoading(true);
       onValue(
         ref(db, "users/" + userData.userId + "/contactList"),
         async (snapshot) => {
           if (snapshot.exists()) {
-            console.log(snapshot.val());
+            // console.log(snapshot.val());
             users = Object.values(snapshot.val());
-            console.log(users);
+            // console.log(users);
             if (users.length === 0) {
               setUsersLoading(false);
               return;
@@ -81,22 +81,25 @@ const Sidebar = ({ update }) => {
               console.log(user);
               let userInfo = {};
               await get(ref(db, "users/" + user)).then((snapshot2) => {
-                console.log(snapshot2.val());
+                // console.log(snapshot2.val());
                 userInfo = snapshot2.val();
               });
               let lastMessage = "";
               await get(
-                ref(db, "messages" + calcMessageHashKey(user, userData.userId))
+                ref(db, "messages/" + calcMessageHashKey(user, userData.userId))
               ).then((snapshot3) => {
                 if (snapshot3.exists()) {
                   let messageResponse = Object.values(snapshot3.val()).slice(
                     -1
                   );
-                  if (messageResponse.type === "text") {
-                    lastMessage = messageResponse.message;
+                  console.log(messageResponse[0]);
+                  if (messageResponse[0].type === "text") {
+                    console.log("yes : "+messageResponse[0].message);
+                    lastMessage = messageResponse[0].message;
                   }
                 }
               });
+              console.log(lastMessage);
               userContacts.push(
                 {
                   userId: userInfo.userId,
@@ -125,7 +128,7 @@ const Sidebar = ({ update }) => {
       userContactList.forEach((user) => {
         onValue(ref(db, "users/" + user.userId), (snapshot) => {
           const data = snapshot.val();
-          console.log(data);
+          // console.log(data);
           setUsersLastUpdate((prevState) => {
             return {
               ...prevState,

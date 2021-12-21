@@ -15,6 +15,7 @@ const SidebarChat = ({
   online,
 }) => {
   const currentUserId = useParams().userId;
+  // console.log(lastMessage);
   const sidebarChat = (
     <div className="SidebarChat">
       <Avatar src={Img} style={{fontSize:"10px"}} />

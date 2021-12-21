@@ -25,7 +25,7 @@ const calcMessageHashKey = (s1, s2) => {
 
 const Chat = () => {
   const params = useParams();
-  console.log(params);
+  // console.log(params);
   const senderUserId = useParams().userId;
   // const roomId = useParams().roomId;
   const [messages, setMessages] = useState([]);
