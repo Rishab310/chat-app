@@ -22,7 +22,6 @@ const SidebarChat = ({
         <div className="SidebarChat_Contact">
           <h3>{Name}</h3>
           <p>{lastMessage}</p>
-          {/* <p>Hello, How are you ?</p> */}
         </div>
         <div className="SidebarChat_Lastseen">
           {!online ? (
@@ -38,12 +37,7 @@ const SidebarChat = ({
     </div>
   );
   let displayOutput = sidebarChat;
-  // let href = "";
-  // if (type === "user") {
-  //   href = "/user/" + Id;
-  // } else {
-  //   href = "/room/" + Id;
-  // }
+
   if (currentUserId !== Id) {
     displayOutput = <Link to={"/user/" + Id}>{sidebarChat}</Link>;
   }

@@ -6,7 +6,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import db from './firebase';
 import './App.css';
 import Sidebar from './components/Sidebar/Sidebar';
-// import Chat from './components/Chat/Chat';
+import Chat from './components/Chat/Chat';
 import Login from './components/Login/Login';
 import AdminChat from './components/AdminChat/AdminChat';
 import { selectUserData, GET_USER } from './redux/reducers/authSlice';
@@ -46,8 +46,7 @@ function App() {
           <div className="App_Body">
             <Sidebar update={updateLastSeen} />
             <Switch>
-              {/* <Route path="/user/:userId" exact component={Chat} /> */}
-              {/* <Route path="/room/:roomId" exact component={Chat} /> */}
+              <Route path="/user/:userId" exact component={Chat} />
               <Route path="/" exact component={AdminChat} />
             </Switch>
           </div>

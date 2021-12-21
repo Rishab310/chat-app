@@ -34,29 +34,11 @@ const calcMessageHashKey = (s1, s2) => {
 const Sidebar = ({ update }) => {
   const dispatch = useDispatch();
   const userData = useSelector(selectUserData);
-  // const userList = db.collection("contacs");
   const [userList, setUserList] = useState({});
 
   console.log(userList);
   const [anchorEl, setAnchorEl] = useState();
-  const [userContactList, setUserContactList] = useState([
-    // {
-    //   lastSeen: 1640082627927,
-    //   userEmail: "chrismiller01012001@gmail.com",
-    //   userId: "7nwJGO8UKaVHaXCZECzMJnw3nLW2",
-    //   userImg:
-    //     "https://lh3.googleusercontent.com/a/AATXAJzrTp9fdMhDZwjwWCo31tk01fI38MtxzH3tIHel=s96-c",
-    //   userName: "Chris Miller",
-    // },
-    // {
-    //   lastSeen: 1640082641921,
-    //   userEmail: "edeasy123@gmail.com",
-    //   userId: "lW03MgDBiQW6ecIqCCIIjBIif1c2",
-    //   userImg:
-    //     "https://lh3.googleusercontent.com/a/AATXAJy8ekFrBDHN_vLlgRMPDy8PygvTSlBlcB4ULG77=s96-c",
-    //   userName: "Ed Easy",
-    // },
-  ]);
+  const [userContactList, setUserContactList] = useState([]);
   const [showAddUser, setShowAddUser] = useState(false);
   const [showError, setShowError] = useState("");
   const [showProfile, setShowProfile] = useState(false);
@@ -112,10 +94,6 @@ const Sidebar = ({ update }) => {
                   );
                   if (messageResponse.type === "text") {
                     lastMessage = messageResponse.message;
-                  } else if (messageResponse.type === "img") {
-                    lastMessage = "--Image--";
-                  } else if (messageResponse.type === "video") {
-                    lastMessage = "--Video--";
                   }
                 }
               });
@@ -135,54 +113,9 @@ const Sidebar = ({ update }) => {
           } else {
             setUsersLoading(false);
             setUserContactList([]);
-          }
+          } 
         }
       );
-      // userList
-      //   .doc(userData.userId)
-      //   .collection("contactList")
-      //   .onSnapshot((snapshot) => {
-      //     users = snapshot.docs.map((doc) => {
-      //       return doc.id;
-      //     });
-      //     if (users.length === 0) {
-      //       setUsersLoading(false);
-      //       return;
-      //     }
-      //     db.collection("contacts").where("userId", "in", users)
-      //       .onSnapshot(async (snapshot2) => {
-      //         let contactList = snapshot2.docs.map(async (user) => {
-      //           let response = await db
-      //             .collection("messages")
-      //             .doc(calcMessageHashKey(user.data().userId, userData.userId))
-      //             .collection("messages")
-      //             .orderBy("timestamp", "desc")
-      //             .limit(1)
-      //             .get();
-      //           let lastMessage = null;
-      //           if (response.docs[0]) {
-      //             response = response.docs[0].data();
-      //             if (response.type === "text") {
-      //               lastMessage = response.message;
-      //             } else if (response.type === "img") {
-      //               lastMessage = "--Image--";
-      //             } else if (response.type === "video") {
-      //               lastMessage = "--Video--";
-      //             }
-      //           }
-      //           return {
-      //             userId: user.data().userId,
-      //             userName: user.data().userName,
-      //             userEmail: user.data().userEmail,
-      //             userImg: user.data().userImg,
-      //             lastMessage,
-      //           };
-      //         });
-      //         contactList = await Promise.all(contactList);
-      //         setUserContactList(contactList);
-      //         setUsersLoading(false);
-      //       });
-      //   });
     }
   };
 
